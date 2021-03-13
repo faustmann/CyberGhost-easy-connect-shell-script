@@ -1,7 +1,7 @@
 #/bin/bash
 COMMAND="$(sudo cyberghostvpn --country-code)"
 STATUS="$(sudo cyberghostvpn --status)"
-if [ "$STATUS" == "VPN connections found." ]
+if [ "$STATUS" == "VPN connection found." ]
 then
 	printf "VPN connection found. Stop connection (y/n): "
 	read -r quit
@@ -12,6 +12,7 @@ then
 	then
 		sudo cyberghostvpn --stop
 		clear
+        	exit
 	fi
 fi
 
@@ -125,12 +126,3 @@ printf "Choose Service [No.]: "
 read -r choosedService
 id=$((choosedService*2))
 sudo cyberghostvpn --country-code $code --streaming"${streamingList[$id]}" --connect
-
-
-
-
-
-
-
-
-
