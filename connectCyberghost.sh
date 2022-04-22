@@ -1,7 +1,7 @@
-#/bin/bash
-COMMAND="$(sudo cyberghostvpn --country-code)"
+#!/bin/bash
+COMMAND="$(sudo cyberghostvpn --country-code --wireguard)"
 STATUS="$(sudo cyberghostvpn --status)"
-if [ "$STATUS" == "VPN connection found." ]
+if [ "$STATUS" == "Wireguard connection found." ]
 then
 	printf "VPN connection found. Stop connection (y/n): "
 	read -r quit
@@ -12,7 +12,7 @@ then
 	then
 		sudo cyberghostvpn --stop
 		clear
-        	exit
+        exit
 	fi
 fi
 
@@ -77,14 +77,14 @@ read -r mode
 
 if [ "$mode" == 1 ]
 then
-	COMMAND="$(sudo cyberghostvpn --country-code $code --streaming)"
+	COMMAND="$(sudo cyberghostvpn --country-code $code --streaming --wireguard)"
 
 elif [ "$mode" == 2 ]
 then
-	sudo cyberghostvpn --country-code $code --torrent --connect
+	sudo cyberghostvpn --country-code $code --torrent --connect --wireguard
 	exit
 else
-	sudo cyberghostvpn --country-code $code --connect
+	sudo cyberghostvpn --country-code $code --connect --wireguard
 	exit
 fi
 
@@ -121,8 +121,8 @@ do
 	fi
 	last=$element
 done
-sudo cyberghostvpn --country-code $code --streaming
+sudo cyberghostvpn --country-code $code --streaming --wireguard
 printf "Choose Service [No.]: "
 read -r choosedService
 id=$((choosedService*2))
-sudo cyberghostvpn --country-code $code --streaming"${streamingList[$id]}" --connect
+sudo cyberghostvpn --country-code $code --streaming"${streamingList[$id]}" --connect --wireguard
